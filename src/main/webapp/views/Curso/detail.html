@@ -1,0 +1,36 @@
+<header ng-switch on="$location.path().indexOf('/Cursos/new') > -1">
+    <h3 ng-switch-when="true">Create a new Curso</h3>
+    <h3 ng-switch-when="false">View or edit Curso</h3>
+</header>
+<form id="CursoForm" name="CursoForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': CursoForm.nome.$invalid}">
+        <label for="nome" class="col-sm-2 control-label">Nome</label>
+        <div id="nomeControls" class="col-sm-10">
+            <input id="nome" name="nome" type="text" required class="form-control" ng-model="curso.nome" placeholder="Enter the Curso Nome"></input>
+            <span class="help-block error" ng-show="CursoForm.nome.$error.required">required</span> 
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': CursoForm.disciplina.$invalid}">
+        <label for="disciplina" class="col-sm-2 control-label">Disciplina</label>
+        <div id="disciplinaControls" class="col-sm-10">
+            <select id="disciplina" name="disciplina" multiple class="form-control" ng-model="disciplinaSelection" ng-options="d.text for d in disciplinaSelectionList">
+                <option value="">Choose a Disciplina</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveCurso" name="saveCurso" class="btn btn-primary" ng-disabled="isClean() || CursoForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteCurso" name="deleteCurso" class="btn btn-danger" ng-show="curso.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>
